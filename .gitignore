@@ -1,0 +1,19 @@
+node_modules
+dist
+out
+.DS_Store
+.eslintcache
+*.log*
+
+# Secrets and local env
+.env
+.env.*
+!.env.example
+backend/.env
+src/renderer/.env
+
+# Python sidecar build artifacts
+sidecar/dist/
+sidecar/build/
+sidecar/__pycache__/
+*.pyc

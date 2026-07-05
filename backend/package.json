@@ -1,0 +1,26 @@
+{
+  "name": "livemask-backend",
+  "version": "1.0.0",
+  "description": "Livemask Hono API — Decart token minting + Paystack billing",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development node --watch src/index.ts",
+    "start": "node src/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "engines": {
+    "node": "24.x"
+  },
+  "dependencies": {
+    "@hono/node-server": "^2.0.6",
+    "@supabase/supabase-js": "^2.108.2",
+    "hono": "^4.12.27",
+    "jose": "^6.2.3"
+  },
+  "devDependencies": {
+    "cross-env": "^10.1.0"
+  }
+}

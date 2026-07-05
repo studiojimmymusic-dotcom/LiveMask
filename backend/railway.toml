@@ -1,0 +1,12 @@
+# Railway deploy config — root directory for this service should be `backend/`.
+# Dashboard: Project → Service → Settings → Root Directory = backend
+
+[build]
+builder = "NIXPACKS"
+
+[deploy]
+startCommand = "npm start"
+healthcheckPath = "/health"
+healthcheckTimeout = 300
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10

@@ -1,0 +1,53 @@
+appId: ai.livemask.app
+productName: Livemask
+copyright: Copyright © 2026 Livemask
+
+directories:
+  buildResources: build
+  output: dist
+
+files:
+  - '!**/.vscode/*'
+  - '!src/*'
+  - '!electron.vite.config.{js,ts,mjs,cjs}'
+  - '!{.eslintcache,eslint.config.mjs,.prettierignore,.prettierrc.yaml,dev-app-update.yml,CHANGELOG.md,README.md}'
+  - '!{.env,.env.*,.npmrc,pnpm-lock.yaml}'
+  - '!{tsconfig.json,tsconfig.node.json,tsconfig.web.json}'
+
+asarUnpack:
+  - resources/**
+
+win:
+  target: nsis
+  icon: resources/icon.ico
+  # Code signing — disabled for now. Add later with an EV cert from
+  # DigiCert/Sectigo to remove the Windows SmartScreen warning.
+  # certificateSubjectName: "Livemask"
+  # signingHashAlgorithms: [sha256]
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  installerIcon: resources/icon.ico
+  uninstallerIcon: resources/icon.ico
+  shortcutName: Livemask
+  uninstallDisplayName: Livemask
+  artifactName: ${name}-${version}-setup.${ext}
+
+extraResources:
+  # The OBS virtual-camera installer is not bundled yet; users install OBS
+  # themselves for now. Re-enable once resources/obs-virtualcam-installer.exe exists.
+  # - from: resources/obs-virtualcam-installer.exe
+  #   to: obs-virtualcam-installer.exe
+  - from: sidecar/dist/virtualcam.exe
+    to: sidecar/virtualcam.exe
+
+# better-sqlite3 is rebuilt for Electron by the `postinstall`
+# (electron-builder install-app-deps) step, so packaging doesn't re-run npm.
+npmRebuild: false
+
+# publish:
+#   provider: github
+#   owner: yourgithubusername
+#   repo: livemask-releases
