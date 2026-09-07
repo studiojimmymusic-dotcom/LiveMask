@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { HashRouter, Routes, Route, useNavigate } from 'react-router-dom'
-import { supabase } from './lib/supabase'
+import { supabase, supabaseConfigError } from './lib/supabase'
 import { useAppStore } from './store/appStore'
 import { resolvePostAuthRoute } from './lib/postAuthRoute'
 import Login from './pages/Login'
@@ -14,6 +14,20 @@ function Placeholder({ label }: { label: string }): React.JSX.Element {
   return (
     <div className="flex min-h-screen w-full items-center justify-center bg-[#0A0A0A] text-white">
       {label}
+    </div>
+  )
+}
+
+function MissingConfig({ message }: { message: string }): React.JSX.Element {
+  return (
+    <div className="flex min-h-screen w-full flex-col items-center justify-center gap-4 bg-[#0A0A0A] px-8 text-center text-white">
+      <h1 className="text-2xl font-semibold tracking-tight">Livemask</h1>
+      <p className="max-w-md text-sm text-[#EF4444]">{message}</p>
+      <p className="max-w-md text-sm text-[#A3A3A3]">
+        Copy <code className="text-white">src/renderer/.env.example</code> to{' '}
+        <code className="text-white">src/renderer/.env</code>, fill in your Supabase URL and anon key, then restart{' '}
+        <code className="text-white">npm run dev</code>.
+      </p>
     </div>
   )
 }
@@ -57,6 +71,10 @@ function AuthListener(): null {
 }
 
 function App(): React.JSX.Element {
+  if (supabaseConfigError) {
+    return <MissingConfig message={supabaseConfigError} />
+  }
+
   return (
     <HashRouter>
       <AuthListener />
